@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VKAY - Dashboard & Gestão de Contas</title>
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -28,13 +29,16 @@
       }
     }
   </script>
+  
   <!-- Google Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <!-- Estilos Internos / Externos -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -44,7 +48,7 @@
   <header class="border-b border-vkay-800/50 bg-vkay-950/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
-        <div class="w-12 h-12 rounded-xl bg-vkay-900/80 border border-vkay-500/50 flex items-center justify-center p-2 shadow-lg shadow-vkay-600/30">
+        <div class="w-12 h-12 rounded-2xl bg-vkay-900/80 border border-vkay-500/50 flex items-center justify-center p-2 shadow-lg shadow-vkay-600/30">
           <svg viewBox="0 0 100 100" class="w-full h-full fill-vkay-400">
             <path d="M 50 12 C 40 12 30 20 20 20 C 15 20 10 18 8 12 C 5 25 10 40 18 50 C 25 58 35 65 50 88 C 65 65 75 58 82 50 C 90 40 95 25 92 12 C 90 18 85 20 80 20 C 70 20 60 12 50 12 Z M 32 38 A 6 6 0 1 1 32 50 A 6 6 0 1 1 32 38 Z M 68 38 A 6 6 0 1 1 68 50 A 6 6 0 1 1 68 38 Z"></path>
           </svg>
@@ -56,14 +60,14 @@
       </div>
 
       <!-- Navegação principal -->
-      <nav class="flex items-center space-x-2 bg-vkay-900/60 p-1.5 rounded-xl border border-vkay-800/80">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
+      <nav class="flex items-center space-x-2 bg-vkay-900/60 p-1.5 rounded-full border border-vkay-800/80">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
           <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
         </button>
-        <button onclick="switchTab('contas')" id="nav-contas" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 bg-vkay-600 text-white shadow-lg shadow-vkay-600/40">
+        <button onclick="switchTab('contas')" id="nav-contas" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 flex items-center space-x-2 bg-vkay-600 text-white shadow-lg shadow-vkay-600/40">
           <i class="fa-solid fa-file-invoice-dollar"></i> <span>Minhas Contas</span>
         </button>
-        <button onclick="switchTab('projetos')" id="nav-projetos" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
+        <button onclick="switchTab('projetos')" id="nav-projetos" class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
           <i class="fa-solid fa-bullseye"></i> <span>Projetos</span>
         </button>
       </nav>
@@ -80,15 +84,15 @@
           <h1 class="text-3xl font-orbitron font-bold text-white">Visão Geral do Mês</h1>
           <p class="text-slate-400 text-sm mt-1">Acompanhamento consolidado de pendências, valores pagos e metas financeiras.</p>
         </div>
-        <button onclick="switchTab('contas'); openBillModal();" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
+        <button onclick="switchTab('contas'); openBillModal();" class="bg-vkay-600 hover:bg-vkay-500 text-white px-6 py-3 rounded-2xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
           <i class="fa-solid fa-plus"></i>
-          <span>Nova Conta</span>
+          <span>Adicionar Conta</span>
         </button>
       </div>
 
-      <!-- Métricas -->
+      <!-- Cards de Métricas Arredondados -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-5 shadow-xl">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-3xl p-6 shadow-xl">
           <div class="flex justify-between items-center text-slate-400 text-xs font-semibold mb-2">
             <span>TOTAL DE CONTAS</span>
             <i class="fa-solid fa-wallet text-vkay-400"></i>
@@ -97,7 +101,7 @@
           <div class="text-xs text-slate-400 mt-2" id="dash-count">0 contas cadastradas</div>
         </div>
 
-        <div class="bg-vkay-900/60 border border-emerald-900/40 rounded-2xl p-5 shadow-xl">
+        <div class="bg-vkay-900/60 border border-emerald-900/40 rounded-3xl p-6 shadow-xl">
           <div class="flex justify-between items-center text-emerald-400 text-xs font-semibold mb-2">
             <span>TOTAL PAGO</span>
             <i class="fa-solid fa-circle-check"></i>
@@ -106,7 +110,7 @@
           <div class="text-xs text-emerald-500/80 mt-2" id="dash-count-pago">0 pagas</div>
         </div>
 
-        <div class="bg-vkay-900/60 border border-amber-900/40 rounded-2xl p-5 shadow-xl">
+        <div class="bg-vkay-900/60 border border-amber-900/40 rounded-3xl p-6 shadow-xl">
           <div class="flex justify-between items-center text-amber-400 text-xs font-semibold mb-2">
             <span>PENDENTES</span>
             <i class="fa-solid fa-clock"></i>
@@ -115,7 +119,7 @@
           <div class="text-xs text-amber-500/80 mt-2" id="dash-count-pendente">0 pendentes</div>
         </div>
 
-        <div class="bg-vkay-900/60 border border-rose-900/40 rounded-2xl p-5 shadow-xl">
+        <div class="bg-vkay-900/60 border border-rose-900/40 rounded-3xl p-6 shadow-xl">
           <div class="flex justify-between items-center text-rose-400 text-xs font-semibold mb-2">
             <span>ATRASADAS</span>
             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -127,13 +131,13 @@
 
       <!-- Gráficos -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-2xl p-6">
+        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-3xl p-6">
           <h3 class="text-lg font-bold text-white mb-4">Gastos por Categoria (Água, Luz, etc.)</h3>
           <div class="h-64 flex items-center justify-center">
             <canvas id="categoryChart"></canvas>
           </div>
         </div>
-        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-2xl p-6 flex flex-col justify-between">
+        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-3xl p-6 flex flex-col justify-between">
           <div>
             <h3 class="text-lg font-bold text-white mb-2">Próximos Vencimentos</h3>
             <p class="text-xs text-slate-400 mb-4">Mantenha o foco para não pagar juros nem multas.</p>
@@ -150,22 +154,22 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 class="text-2xl font-orbitron font-bold text-white">Controle de Contas e Despesas</h1>
-          <p class="text-slate-400 text-sm mt-1">Gerencie suas faturas fixas (água, luz, internet) e recorrentes.</p>
+          <p class="text-slate-400 text-sm mt-1">Gerencie suas faturas fixas (água, luz, internet) e adicione quantas desejar.</p>
         </div>
-        <button onclick="openBillModal()" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
+        <button onclick="openBillModal()" class="bg-vkay-600 hover:bg-vkay-500 text-white px-6 py-3 rounded-2xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
           <i class="fa-solid fa-plus"></i>
-          <span>Cadastrar Nova Conta</span>
+          <span>Adicionar Mais Contas</span>
         </button>
       </div>
 
-      <!-- Filtros e Busca -->
-      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+      <!-- Filtros e Busca com Bordas Arredondadas -->
+      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-3xl p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
         <div class="relative w-full md:w-80">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
-          <input type="text" id="filter-search" oninput="renderBills()" placeholder="Buscar conta (ex: Água, Sanepar)..." class="w-full bg-vkay-950 border border-vkay-800 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-vkay-500">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-500 text-sm"></i>
+          <input type="text" id="filter-search" oninput="renderBills()" placeholder="Buscar conta (ex: Água, Sanepar)..." class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl pl-11 pr-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-vkay-500">
         </div>
         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-          <select id="filter-category" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
+          <select id="filter-category" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-2xl px-4 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
             <option value="ALL">Todas as Categorias</option>
             <option value="Agua">Água</option>
             <option value="Luz">Luz / Energia</option>
@@ -175,7 +179,7 @@
             <option value="Outros">Outros</option>
           </select>
 
-          <select id="filter-status" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
+          <select id="filter-status" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-2xl px-4 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
             <option value="ALL">Todos os Status</option>
             <option value="pago">Pagas</option>
             <option value="pendente">Pendentes</option>
@@ -184,8 +188,8 @@
         </div>
       </div>
 
-      <!-- Tabela / Lista de Contas -->
-      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl overflow-hidden shadow-xl">
+      <!-- Tabela Arredondada -->
+      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-3xl overflow-hidden shadow-xl">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
@@ -205,7 +209,7 @@
         </div>
         <div id="empty-bills-msg" class="hidden p-8 text-center text-slate-500">
           <i class="fa-solid fa-file-circle-xmark text-4xl mb-3 block text-slate-600"></i>
-          Nenhuma conta encontrada com os filtros selecionados.
+          Nenhuma conta encontrada. Clique em <b>"Adicionar Mais Contas"</b> para cadastrar!
         </div>
       </div>
     </section>
@@ -218,14 +222,14 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-3xl p-6">
+          <div class="w-12 h-12 rounded-2xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
             <i class="fa-solid fa-car text-lg"></i>
           </div>
           <h3 class="font-bold text-white text-lg">Reserva de Emergência</h3>
-          <p class="text-xs text-slate-400 mt-1">Juntar 6 meses de contas fixas pagar em segurança.</p>
-          <div class="mt-4 bg-vkay-950 rounded-full h-2.5 overflow-hidden border border-vkay-800">
-            <div class="bg-vkay-500 h-full w-2/3"></div>
+          <p class="text-xs text-slate-400 mt-1">Juntar 6 meses de contas fixas para garantir estabilidade.</p>
+          <div class="mt-4 bg-vkay-950 rounded-full h-3 overflow-hidden border border-vkay-800">
+            <div class="bg-vkay-500 h-full w-2/3 rounded-full"></div>
           </div>
           <div class="flex justify-between text-xs text-slate-400 mt-2">
             <span>Progresso</span>
@@ -233,14 +237,14 @@
           </div>
         </div>
 
-        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-3xl p-6">
+          <div class="w-12 h-12 rounded-2xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
             <i class="fa-solid fa-house text-lg"></i>
           </div>
           <h3 class="font-bold text-white text-lg">Reforma / Casa Nova</h3>
-          <p class="text-xs text-slate-400 mt-1">Planejamento financeiro para otimizar residência.</p>
-          <div class="mt-4 bg-vkay-950 rounded-full h-2.5 overflow-hidden border border-vkay-800">
-            <div class="bg-vkay-500 h-full w-1/3"></div>
+          <p class="text-xs text-slate-400 mt-1">Planejamento financeiro para otimizar a residência.</p>
+          <div class="mt-4 bg-vkay-950 rounded-full h-3 overflow-hidden border border-vkay-800">
+            <div class="bg-vkay-500 h-full w-1/3 rounded-full"></div>
           </div>
           <div class="flex justify-between text-xs text-slate-400 mt-2">
             <span>Progresso</span>
@@ -248,7 +252,7 @@
           </div>
         </div>
 
-        <div class="bg-vkay-900/60 border border-vkay-800/80 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-vkay-500 transition">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 border-dashed rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-vkay-500 transition">
           <i class="fa-solid fa-plus-circle text-3xl text-vkay-500 mb-2"></i>
           <span class="font-semibold text-slate-300 text-sm">Criar Novo Projeto</span>
         </div>
@@ -256,13 +260,13 @@
     </section>
   </main>
 
-  <!-- MODAL: NOVA / EDITAR CONTA -->
+  <!-- MODAL: ADICIONAR / EDITAR CONTA (SUPER ARREDONDADO) -->
   <div id="modal-bill" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-vkay-900 border border-vkay-700/80 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+    <div class="bg-vkay-900 border border-vkay-700/80 rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <div class="flex justify-between items-center mb-6 border-b border-vkay-800 pb-4">
-        <h3 id="modal-title" class="font-orbitron font-bold text-lg text-white">Cadastrar Conta</h3>
-        <button onclick="closeBillModal()" class="text-slate-400 hover:text-white transition">
-          <i class="fa-solid fa-xmark text-xl"></i>
+        <h3 id="modal-title" class="font-orbitron font-bold text-lg text-white">Adicionar Nova Conta</h3>
+        <button onclick="closeBillModal()" class="w-8 h-8 rounded-full bg-vkay-800/50 hover:bg-vkay-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
@@ -271,13 +275,13 @@
 
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">Descrição / Nome da Conta</label>
-          <input type="text" id="bill-name" required placeholder="Ex: Sanepar, Copel, Vivo Fibra..." class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+          <input type="text" id="bill-name" required placeholder="Ex: Conta de Água, Luz, Internet..." class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Categoria</label>
-            <select id="bill-category" required class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+            <select id="bill-category" required class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
               <option value="Agua">Água</option>
               <option value="Luz">Luz / Energia</option>
               <option value="Internet">Internet / TV</option>
@@ -289,19 +293,19 @@
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Valor (R$)</label>
-            <input type="number" step="0.01" id="bill-amount" required placeholder="0,00" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+            <input type="number" step="0.01" id="bill-amount" required placeholder="0,00" class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Data de Vencimento</label>
-            <input type="date" id="bill-duedate" required class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Vencimento</label>
+            <input type="date" id="bill-duedate" required class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Status Inicial</label>
-            <select id="bill-status" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+            <select id="bill-status" class="w-full bg-vkay-950 border border-vkay-800 rounded-2xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
               <option value="pendente">Pendente</option>
               <option value="pago">Pago</option>
             </select>
@@ -309,8 +313,8 @@
         </div>
 
         <div class="pt-4 flex justify-end space-x-3">
-          <button type="button" onclick="closeBillModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white transition">Cancelar</button>
-          <button type="submit" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-vkay-600/30 transition">Salvar Conta</button>
+          <button type="button" onclick="closeBillModal()" class="px-5 py-2.5 rounded-2xl text-sm font-semibold text-slate-400 hover:text-white transition">Cancelar</button>
+          <button type="submit" class="bg-vkay-600 hover:bg-vkay-500 text-white px-6 py-2.5 rounded-2xl text-sm font-semibold shadow-lg shadow-vkay-600/30 transition">Salvar Conta</button>
         </div>
       </form>
     </div>

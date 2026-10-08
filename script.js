@@ -1,4 +1,4 @@
-// Dados Iniciais / Armazenamento Local
+// Carrega as contas do localStorage ou inicializa com valores de exemplo
 let bills = JSON.parse(localStorage.getItem('vkay_bills')) || [
   { id: '1', name: 'Conta de Água (Sanepar)', category: 'Agua', amount: 85.50, dueDate: '2026-10-15', status: 'pendente' },
   { id: '2', name: 'Energia Elétrica (Copel)', category: 'Luz', amount: 210.00, dueDate: '2026-10-20', status: 'pendente' },
@@ -7,18 +7,19 @@ let bills = JSON.parse(localStorage.getItem('vkay_bills')) || [
 
 let categoryChart = null;
 
-// Inicialização ao carregar página
+// Inicialização ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
   renderBills();
   updateDashboard();
   initChart();
 });
 
+// Salva as contas no navegador
 function saveToLocalStorage() {
   localStorage.setItem('vkay_bills', JSON.stringify(bills));
 }
 
-// Troca de Abas
+// Alternar entre Abas (Dashboard / Contas / Projetos)
 function switchTab(tabName) {
   const tabs = ['dashboard', 'contas', 'projetos'];
   tabs.forEach(t => {
@@ -42,7 +43,7 @@ function switchTab(tabName) {
   }
 }
 
-// Renderização da Tabela de Contas
+// Renderizar a tabela de contas cadastradas
 function renderBills() {
   const tbody = document.getElementById('bills-table-body');
   const emptyMsg = document.getElementById('empty-bills-msg');
@@ -96,12 +97,12 @@ function renderBills() {
     tr.className = "hover:bg-vkay-800/30";
     tr.innerHTML = `
       <td class="py-4 px-6">
-        <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${badgeClass}">
+        <span class="px-3 py-1 text-xs font-semibold ${badgeClass}">
           ${badgeText}
         </span>
       </td>
       <td class="py-4 px-6 font-medium text-white flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-lg bg-vkay-950 border border-vkay-800 flex items-center justify-center">
+        <div class="w-9 h-9 rounded-2xl bg-vkay-950 border border-vkay-800 flex items-center justify-center">
           <i class="fa-solid ${icon}"></i>
         </div>
         <span>${bill.name}</span>
@@ -110,10 +111,10 @@ function renderBills() {
       <td class="py-4 px-6 text-slate-300 text-xs">${formatDate(bill.dueDate)}</td>
       <td class="py-4 px-6 font-semibold text-white">R$ ${parseFloat(bill.amount).toFixed(2)}</td>
       <td class="py-4 px-6 text-right space-x-2">
-        <button onclick="toggleBillStatus('${bill.id}')" title="Mudar Status" class="p-2 rounded-lg bg-vkay-800/50 hover:bg-vkay-700 text-slate-200 transition">
+        <button onclick="toggleBillStatus('${bill.id}')" title="Mudar Status" class="p-2.5 rounded-xl bg-vkay-800/50 hover:bg-vkay-700 text-slate-200 transition">
           <i class="fa-solid ${bill.status === 'pago' ? 'fa-rotate-left' : 'fa-check'}"></i>
         </button>
-        <button onclick="deleteBill('${bill.id}')" title="Excluir" class="p-2 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 text-rose-400 transition">
+        <button onclick="deleteBill('${bill.id}')" title="Excluir" class="p-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-400 transition">
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>
@@ -122,11 +123,11 @@ function renderBills() {
   });
 }
 
-// Funções do Modal
+// Modal para adicionar ou editar contas
 function openBillModal() {
   document.getElementById('bill-form').reset();
   document.getElementById('bill-id').value = '';
-  document.getElementById('modal-title').innerText = 'Cadastrar Nova Conta';
+  document.getElementById('modal-title').innerText = 'Adicionar Nova Conta';
   document.getElementById('modal-bill').classList.remove('hidden');
 }
 
@@ -134,6 +135,7 @@ function closeBillModal() {
   document.getElementById('modal-bill').classList.add('hidden');
 }
 
+// Adiciona uma nova conta ao sistema
 function handleSaveBill(e) {
   e.preventDefault();
   const id = document.getElementById('bill-id').value || Date.now().toString();
@@ -156,6 +158,7 @@ function handleSaveBill(e) {
   closeBillModal();
 }
 
+// Altera o status (Pago / Pendente)
 function toggleBillStatus(id) {
   const bill = bills.find(b => b.id === id);
   if (bill) {
@@ -166,6 +169,7 @@ function toggleBillStatus(id) {
   }
 }
 
+// Exclui uma conta
 function deleteBill(id) {
   if (confirm('Tem certeza que deseja remover esta conta?')) {
     bills = bills.filter(b => b.id !== id);
@@ -225,7 +229,7 @@ function renderUpcomingBills() {
   }
 
   container.innerHTML = pending.map(b => `
-    <div class="flex items-center justify-between p-3 rounded-xl bg-vkay-950/60 border border-vkay-800/60">
+    <div class="flex items-center justify-between p-3.5 rounded-2xl bg-vkay-950/60 border border-vkay-800/60">
       <div>
         <p class="text-sm font-semibold text-white">${b.name}</p>
         <p class="text-xs text-slate-400">Vence em: ${formatDate(b.dueDate)}</p>
@@ -235,7 +239,7 @@ function renderUpcomingBills() {
   `).join('');
 }
 
-// Chart.js
+// Inicializa o Gráfico por Categorias
 function initChart() {
   const ctx = document.getElementById('categoryChart').getContext('2d');
   categoryChart = new Chart(ctx, {
@@ -279,7 +283,7 @@ function getChartData() {
   };
 }
 
-// Helpers
+// Auxiliares
 function isOverdue(dateStr) {
   const today = new Date();
   today.setHours(0,0,0,0);
