@@ -1,15 +1,14 @@
-/* Importação de fontes */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap');
 
 body {
   font-family: 'Inter', sans-serif;
 }
 
-.font-outfit {
-  font-family: 'Outfit', sans-serif;
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
 }
 
-/* Animações suave para transição de abas */
+/* Animação suave para troca de seções */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -25,21 +24,21 @@ body {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Customização da barra de rolagem */
+/* Personalização da barra de rolagem estilizada */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #0f0720;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #4c1d95;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #6d28d9;
 }

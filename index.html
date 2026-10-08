@@ -1,440 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projeto de Vida & Matemática Aplicada</title>
+  <title>VKAY - Projeto de Vida & Matemática Aplicada</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            vkay: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+              950: '#0f0720'
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- Fontes Google (Inter & Outfit) -->
+  <!-- Google Fonts: Orbitron & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Chart.js para Gráficos -->
+  <!-- Chart.js para os gráficos -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Arquivo de Estilos Customizados -->
+  <!-- Estilos customizados -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-900 text-slate-100 flex flex-col min-h-screen">
+<body class="bg-vkay-950 text-slate-100 flex flex-col min-h-screen selection:bg-vkay-500 selection:text-white">
 
   <!-- Header / Navbar -->
-  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+  <header class="border-b border-vkay-800/50 bg-vkay-950/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
-          <i class="fa-solid fa-chart-line text-lg"></i>
-        </div>
-        <div>
-          <span class="font-outfit font-bold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">VidaMath</span>
-          <span class="text-xs block text-indigo-400 font-medium">Projeto de Vida com Matemática</span>
-        </div>
-      </div>
-
-      <nav class="hidden md:flex space-x-1 bg-slate-800/50 p-1.5 rounded-xl border border-slate-700/50">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-indigo-600 text-white shadow-md">
-          <i class="fa-solid fa-compass mr-2"></i>Visão Geral
-        </button>
-        <button onclick="switchTab('juros')" id="nav-juros" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all duration-200">
-          <i class="fa-solid fa-coins mr-2"></i>Juros Compostos
-        </button>
-        <button onclick="switchTab('estudos')" id="nav-estudos" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all duration-200">
-          <i class="fa-solid fa-graduation-cap mr-2"></i>Plano de Estudos
-        </button>
-        <button onclick="switchTab('orcamento')" id="nav-orcamento" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all duration-200">
-          <i class="fa-solid fa-wallet mr-2"></i>Regra 50/30/20
-        </button>
-        <button onclick="switchTab('metas')" id="nav-metas" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all duration-200">
-          <i class="fa-solid fa-bullseye mr-2"></i>Minhas Metas
-        </button>
-      </nav>
-
-      <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2">
-        <i class="fa-solid fa-bars text-xl"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-900 px-4 py-3 space-y-2">
-      <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Visão Geral</button>
-      <button onclick="switchTab('juros')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Juros Compostos</button>
-      <button onclick="switchTab('estudos')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Plano de Estudos</button>
-      <button onclick="switchTab('orcamento')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Regra 50/30/20</button>
-      <button onclick="switchTab('metas')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-slate-800">Minhas Metas</button>
-    </div>
-  </header>
-
-  <!-- Container Conteúdo Principal -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-
-    <!-- SEÇÃO: DASHBOARD / VISÃO GERAL -->
-    <section id="tab-dashboard" class="tab-content space-y-8 animate-fadeIn">
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900/60 via-purple-900/40 to-slate-900 border border-indigo-500/30 p-8 md:p-12">
-        <div class="max-w-2xl relative z-10 space-y-4">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-            <i class="fa-solid fa-lightbulb mr-1.5"></i> Modelagem Matemática de Metas
-          </span>
-          <h1 class="font-outfit text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Transforme sonhos em <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">prazos e números</span>.
-          </h1>
-          <p class="text-slate-300 text-base md:text-lg">
-            Um Projeto de Vida eficiente conecta desejos do futuro com decisões exatas no presente. Utilize equações, progressões e estimativas matemáticas para construir seu caminho.
-          </p>
-          <div class="pt-2 flex flex-wrap gap-4">
-            <button onclick="switchTab('juros')" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition shadow-lg shadow-indigo-600/30 flex items-center">
-              Simular Futuro Financeiro <i class="fa-solid fa-arrow-right ml-2"></i>
-            </button>
-            <button onclick="switchTab('metas')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-sm transition flex items-center">
-              Gerenciar Objetivos
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Módulos de Aprendizado/Ferramentas -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div onclick="switchTab('juros')" class="cursor-pointer bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-800 transition group">
-          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <h3 class="font-outfit text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition">Exponencial dos Juros</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Aprenda como a função exponencial $M = C(1+i)^t$ multiplica seu patrimônio ao longo do tempo através de aportes constantes.
-          </p>
-          <span class="text-xs font-semibold text-emerald-400 flex items-center">
-            Acessar Calculadora <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-
-        <div onclick="switchTab('estudos')" class="cursor-pointer bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-800 transition group">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-clock"></i>
-          </div>
-          <h3 class="font-outfit text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition">Divisão de Horas de Estudo</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Utilize pesos de relevância e coeficientes de dificuldade para calcular proporcionalmente as horas semanais para vestibulares e concursos.
-          </p>
-          <span class="text-xs font-semibold text-indigo-400 flex items-center">
-            Planejar Rotina <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-
-        <div onclick="switchTab('orcamento')" class="cursor-pointer bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 hover:border-indigo-500/50 hover:bg-slate-800 transition group">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-pie-chart"></i>
-          </div>
-          <h3 class="font-outfit text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition">Proporções Financeiras (50/30/20)</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Aplique estatística básica e frações orçamentárias para dividir sua renda entre Necessidades, Desejos e Futuro/Investimentos.
-          </p>
-          <span class="text-xs font-semibold text-purple-400 flex items-center">
-            Otimizar Renda <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-      </div>
-
-      <!-- Resumo do Progresso de Metas -->
-      <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-outfit text-lg font-bold text-white flex items-center">
-            <i class="fa-solid fa-flag text-indigo-400 mr-2"></i> Visão Rápida dos Objetivos
-          </h3>
-          <button onclick="switchTab('metas')" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">Ver Todas</button>
-        </div>
-        <div id="dashboard-goals-list" class="space-y-3">
-          <!-- Renderizado via JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: JUROS COMPOSTOS -->
-    <section id="tab-juros" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-slate-800 pb-5">
-        <h2 class="font-outfit text-2xl font-bold text-white">Cálculo de Juros Compostos & Crescimento Patrimonial</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          A fórmula $M = C \cdot (1 + i)^t$ demonstra o efeito acumulativo dos juros no tempo. Veja a diferença entre guardar dinheiro parado e investir.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Formulário de Entrada -->
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 space-y-5">
-          <h3 class="font-outfit text-lg font-semibold text-indigo-300 border-b border-slate-700/60 pb-3">Parâmetros do Simulado</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Aporte Inicial (R$)</label>
-            <input type="number" id="juros-inicial" value="1000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Aporte Mensal (R$)</label>
-            <input type="number" id="juros-mensal" value="300" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Taxa de Juros Anual (%)</label>
-            <input type="number" id="juros-taxa" value="10" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-            <span class="text-[11px] text-slate-400 mt-1 block">Aprox. 0.8% ao mês</span>
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Tempo de Investimento (Anos)</label>
-            <input type="number" id="juros-anos" value="10" min="1" max="50" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-          </div>
-
-          <button onclick="calcularJuros()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium text-sm transition shadow-lg shadow-indigo-600/30">
-            Calcular Projeção
-          </button>
-        </div>
-
-        <!-- Resultados e Gráfico -->
-        <div class="lg:col-span-2 space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 block font-medium">Valor Total Acumulado</span>
-              <span id="res-juros-total" class="font-outfit text-2xl font-bold text-emerald-400 mt-1 block">R$ 0,00</span>
-            </div>
-            <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 block font-medium">Total Investido (Do seu bolso)</span>
-              <span id="res-juros-investido" class="font-outfit text-2xl font-bold text-slate-200 mt-1 block">R$ 0,00</span>
-            </div>
-            <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 block font-medium">Total em Juros Ganhos</span>
-              <span id="res-juros-ganhos" class="font-outfit text-2xl font-bold text-indigo-400 mt-1 block">R$ 0,00</span>
-            </div>
-          </div>
-
-          <!-- Canvas do Gráfico -->
-          <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6">
-            <h4 class="text-sm font-semibold text-slate-300 mb-4">Evolução do Patrimônio ao longo do Tempo</h4>
-            <div class="h-64 sm:h-80 relative">
-              <canvas id="chartJuros"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: PLANO DE ESTUDOS (PESOS MATEMÁTICOS) -->
-    <section id="tab-estudos" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-slate-800 pb-5">
-        <h2 class="font-outfit text-2xl font-bold text-white">Planejador de Horas de Estudo Proporcional</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          Distribua seu tempo semanal com base na fórmula: $Horas_i = Horas_{Totais} \cdot \left(\frac{Peso_i \cdot Dificuldade_i}{\sum (Peso \cdot Dificuldade)}\right)$
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Configurações e Entrada de Disciplinas -->
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 space-y-5">
-          <h3 class="font-outfit text-lg font-semibold text-indigo-300 border-b border-slate-700/60 pb-3">Configurar Parâmetros</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Horas Semanais Disponíveis</label>
-            <input type="number" id="estudo-horas-totais" value="20" min="1" max="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-          </div>
-
-          <div class="pt-2 border-t border-slate-700/60">
-            <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">Adicionar Disciplina</h4>
-            <div class="space-y-3">
-              <input type="text" id="estudo-nome" placeholder="Ex: Matemática, Redação" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-1">Peso na Prova (1-5)</label>
-                  <input type="number" id="estudo-peso" min="1" max="5" value="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-1">Dificuldade (1-5)</label>
-                  <input type="number" id="estudo-dif" min="1" max="5" value="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-                </div>
-              </div>
-              <button onclick="adicionarDisciplina()" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-medium transition">
-                + Incluir Disciplina
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lista e Resultados -->
-        <div class="lg:col-span-2 space-y-6">
-          <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6">
-            <div class="flex items-center justify-between mb-4">
-              <h4 class="text-sm font-semibold text-slate-200">Disciplinas e Distribuição Proporcional</h4>
-              <button onclick="calcularEstudos()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded-lg font-medium transition">
-                Recalcular Horas
-              </button>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-sm text-slate-300">
-                <thead class="text-xs text-slate-400 uppercase border-b border-slate-700">
-                  <tr>
-                    <th class="py-3 px-2">Matéria</th>
-                    <th class="py-3 px-2 text-center">Peso</th>
-                    <th class="py-3 px-2 text-center">Dificuldade</th>
-                    <th class="py-3 px-2 text-center">Índice</th>
-                    <th class="py-3 px-2 text-right">Horas/Semana</th>
-                    <th class="py-3 px-2 text-right">Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="tabela-disciplinas" class="divide-y divide-slate-700/50">
-                  <!-- JS Injeta linhas aqui -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6">
-            <h4 class="text-sm font-semibold text-slate-300 mb-4">Distribuição do Tempo (%)</h4>
-            <div class="h-64 relative">
-              <canvas id="chartEstudos"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: REGRA 50/30/20 -->
-    <section id="tab-orcamento" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-slate-800 pb-5">
-        <h2 class="font-outfit text-2xl font-bold text-white">Planejador Orçamentário: Regra 50/30/20</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          Divida sua renda líquida em três proporções matemáticas fundamentais para manter estabilidade e construir futuro.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 space-y-5">
-          <h3 class="font-outfit text-lg font-semibold text-indigo-300 border-b border-slate-700/60 pb-3">Sua Renda Mensal</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Renda Líquida Total (R$)</label>
-            <input type="number" id="orcamento-renda" value="3000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm">
-          </div>
-
-          <button onclick="calcularOrcamento()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-medium text-sm transition shadow-lg shadow-indigo-600/30">
-            Calcular Divisão Proporcional
-          </button>
-        </div>
-
-        <div class="lg:col-span-2 space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <!-- 50% Necesidades -->
-            <div class="bg-slate-800/60 border border-amber-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-2 h-full bg-amber-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-amber-400 font-semibold uppercase tracking-wider block">50% - Necessidades</span>
-              <span id="orc-50-valor" class="font-outfit text-2xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Aluguel, contas, alimentação básica, saúde e transporte.</p>
-            </div>
-
-            <!-- 30% Desejos -->
-            <div class="bg-slate-800/60 border border-purple-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-2 h-full bg-purple-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-purple-400 font-semibold uppercase tracking-wider block">30% - Desejos Pessoais</span>
-              <span id="orc-30-valor" class="font-outfit text-2xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Lazer, passeios, assinaturas, hobbies e restaurantes.</p>
-            </div>
-
-            <!-- 20% Futuro -->
-            <div class="bg-slate-800/60 border border-emerald-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-2 h-full bg-emerald-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block">20% - Futuro & Objetivos</span>
-              <span id="orc-20-valor" class="font-outfit text-2xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Reserva de emergência, metas de longo prazo e investimentos.</p>
-            </div>
-          </div>
-
-          <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 flex flex-col items-center">
-            <h4 class="text-sm font-semibold text-slate-300 mb-4 w-full text-left">Gráfico da Distribuição do Seu Orçamento</h4>
-            <div class="h-64 w-full max-w-md relative">
-              <canvas id="chartOrcamento"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: GERENCIADOR DE METAS (PROJETO DE VIDA) -->
-    <section id="tab-metas" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-slate-800 pb-5 flex justify-between items-center flex-wrap gap-4">
-        <div>
-          <h2 class="font-outfit text-2xl font-bold text-white">Minhas Metas & Objetivos de Vida</h2>
-          <p class="text-slate-400 text-sm mt-1">
-            Cadastre suas metas, defina valores e prazos. O sistema calculará o esforço diário/mensal necessário.
-          </p>
-        </div>
-        <button onclick="abrirModalMeta()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold transition flex items-center shadow-lg shadow-indigo-600/30">
-          <i class="fa-solid fa-plus mr-2"></i> Nova Meta
-        </button>
-      </div>
-
-      <!-- Lista de Metas Cadastradas -->
-      <div id="lista-metas-cards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- JS renderiza metas aqui -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- MODAL: NOVA META -->
-  <div id="modal-meta" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-outfit text-lg font-bold text-white">Criar Nova Meta de Vida</h3>
-        <button onclick="fecharModalMeta()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="space-y-3">
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Título da Meta</label>
-          <input type="text" id="meta-titulo" placeholder="Ex: Comprar Notebook, Viagem de Formatura" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-        </div>
-
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Categoria</label>
-          <select id="meta-categoria" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-            <option value="Financeiro">Financeiro / Patrimônio</option>
-            <option value="Estudos">Estudos / Carreira</option>
-            <option value="Pessoal">Pessoal / Saúde</option>
-          </select>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Valor Alvo (R$)</label>
-            <input type="number" id="meta-valor-total" placeholder="3000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Valor Atual Salvo (R$)</label>
-            <input type="number" id="meta-valor-atual" placeholder="500" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Prazo Alvo (Meses)</label>
-          <input type="number" id="meta-prazo" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm">
-        </div>
-      </div>
-
-      <div class="pt-3 flex justify-end space-x-3">
-        <button onclick="fecharModalMeta()" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancelar</button>
-        <button onclick="salvarMeta()" class="px-4 py-2 rounded-xl text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500">Salvar Meta</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="border-t border-slate-800 bg-slate-900/50 py-6 text-center text-xs text-slate-500">
-    <p>Projeto de Vida & Matemática Aplicada &copy; 2026 - Conectando dados, ciência e futuro.</p>
-  </footer>
-
-  <!-- Arquivo de Lógica JavaScript -->
-  <script src="script.js"></script>
-</body>
-</html>
+      
+      <!-- Logo VKAY com Ícone Fiel da Felina -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+        <div class="w-12 h-12 rounded-xl bg-vkay-900/80 border border-vkay-500/50 flex items-center justify-center p-2 shadow-lg shadow-vkay-600/30 group hover:border-vkay-400 transition">
+          <svg viewBox="0 0 100 100" class="w-full h-full fill-vkay-400 group-hover:scale-105 transition duration-200">
+            <!-- Vetor Fiel da Onça/Felino -->
+            <path d="M 50 12 C 40 12 30 18 25 28 C 22 34 22 42 20 48 C 18 54 15 62 20 68 C 22 71 26 73 30 71 C 36 68 40 60 48 60 C 52 60 56 63 60 62 C 63 61 65 58 68 55 C 72 51 75 44 75 38 C 75 28 66 22 58 18 Z 
+                     M 32 30 C 35 30 38 33 37 36 C 36 39 32 40 30 38 C 28 36 29 31 32 30 Z 
+                     M 55 28 C 58 28 62 31 60 35 C 58 38 54 38 52 35 C 50 32 52 28 55 28 Z 
+                     M 42 42 C 46 42 48 45 46 48 C 44 51 40 51 38 48 C 36 45 39 42 42 42 Z
+                     M 25 52 C 28 55 35 58 40 56 C 38 60 30 62 25 58 Z" />
+            <path d="M 38 70 C 42 78 48 85 58 88 C 68 91 78 86 82 76 C 85 68 82 58 78 50 C 74 42 68 35 65 28 C 65 35 70
