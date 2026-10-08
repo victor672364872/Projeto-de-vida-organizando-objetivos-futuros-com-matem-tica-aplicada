@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VKAY - Projeto de Vida & Matemática Aplicada</title>
-
+  <title>VKAY - Dashboard & Gestão de Contas</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -29,437 +28,295 @@
       }
     }
   </script>
-
-  <!-- Google Fonts: Orbitron & Inter -->
+  <!-- Google Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- FontAwesome Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Chart.js para os gráficos -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Estilos customizados -->
+  <!-- Estilos Internos / Externos -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-vkay-950 text-slate-100 flex flex-col min-h-screen selection:bg-vkay-500 selection:text-white">
+<body class="bg-vkay-950 text-slate-100 flex flex-col min-h-screen font-sans selection:bg-vkay-500 selection:text-white">
 
-  <!-- Header / Navbar -->
+  <!-- Header -->
   <header class="border-b border-vkay-800/50 bg-vkay-950/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- Logo VKAY com Ícone Fiel da Felina -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
-        <div class="w-12 h-12 rounded-xl bg-vkay-900/80 border border-vkay-500/50 flex items-center justify-center p-2 shadow-lg shadow-vkay-600/30 group hover:border-vkay-400 transition">
-          <svg viewBox="0 0 100 100" class="w-full h-full fill-vkay-400 group-hover:scale-105 transition duration-200">
-            <!-- Vetor Fiel da Onça/Felino -->
-            <path d="M 50 12 C 40 12 30 18 25 28 C 22 34 22 42 20 48 C 18 54 15 62 20 68 C 22 71 26 73 30 71 C 36 68 40 60 48 60 C 52 60 56 63 60 62 C 63 61 65 58 68 55 C 72 51 75 44 75 38 C 75 28 66 22 58 18 Z 
-                     M 32 30 C 35 30 38 33 37 36 C 36 39 32 40 30 38 C 28 36 29 31 32 30 Z 
-                     M 55 28 C 58 28 62 31 60 35 C 58 38 54 38 52 35 C 50 32 52 28 55 28 Z 
-                     M 42 42 C 46 42 48 45 46 48 C 44 51 40 51 38 48 C 36 45 39 42 42 42 Z
-                     M 25 52 C 28 55 35 58 40 56 C 38 60 30 62 25 58 Z" />
-            <path d="M 38 70 C 42 78 48 85 58 88 C 68 91 78 86 82 76 C 85 68 82 58 78 50 C 74 42 68 35 65 28 C 65 35 70 42 72 48 C 75 56 75 64 70 70 C 65 76 55 78 48 74 C 43 71 40 66 38 70 Z" />
+        <div class="w-12 h-12 rounded-xl bg-vkay-900/80 border border-vkay-500/50 flex items-center justify-center p-2 shadow-lg shadow-vkay-600/30">
+          <svg viewBox="0 0 100 100" class="w-full h-full fill-vkay-400">
+            <path d="M 50 12 C 40 12 30 20 20 20 C 15 20 10 18 8 12 C 5 25 10 40 18 50 C 25 58 35 65 50 88 C 65 65 75 58 82 50 C 90 40 95 25 92 12 C 90 18 85 20 80 20 C 70 20 60 12 50 12 Z M 32 38 A 6 6 0 1 1 32 50 A 6 6 0 1 1 32 38 Z M 68 38 A 6 6 0 1 1 68 50 A 6 6 0 1 1 68 38 Z"></path>
           </svg>
         </div>
         <div>
-          <span class="font-orbitron font-black text-2xl tracking-wider text-white flex items-center gap-1">
-            VKAY <span class="w-2 h-2 rounded-full bg-vkay-500 animate-pulse"></span>
-          </span>
-          <span class="text-[10px] uppercase font-bold text-vkay-400 tracking-widest block -mt-1">Matemática Aplicada</span>
+          <span class="font-orbitron font-extrabold text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-vkay-400 via-purple-300 to-indigo-400">VKAY</span>
+          <p class="text-xs text-vkay-400 font-medium">Finanças & Projetos</p>
         </div>
       </div>
 
-      <!-- Navegação Desktop -->
-      <nav class="hidden md:flex space-x-1 bg-vkay-900/60 p-1.5 rounded-xl border border-vkay-800">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition duration-200 bg-vkay-600 text-white shadow-lg shadow-vkay-600/40">
-          <i class="fa-solid fa-compass mr-1.5"></i>Visão Geral
+      <!-- Navegação principal -->
+      <nav class="flex items-center space-x-2 bg-vkay-900/60 p-1.5 rounded-xl border border-vkay-800/80">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
+          <i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span>
         </button>
-        <button onclick="switchTab('juros')" id="nav-juros" class="nav-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition duration-200">
-          <i class="fa-solid fa-chart-line mr-1.5"></i>Juros Compostos
+        <button onclick="switchTab('contas')" id="nav-contas" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 bg-vkay-600 text-white shadow-lg shadow-vkay-600/40">
+          <i class="fa-solid fa-file-invoice-dollar"></i> <span>Minhas Contas</span>
         </button>
-        <button onclick="switchTab('estudos')" id="nav-estudos" class="nav-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition duration-200">
-          <i class="fa-solid fa-graduation-cap mr-1.5"></i>Plano de Estudos
-        </button>
-        <button onclick="switchTab('orcamento')" id="nav-orcamento" class="nav-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition duration-200">
-          <i class="fa-solid fa-pie-chart mr-1.5"></i>Regra 50/30/20
-        </button>
-        <button onclick="switchTab('metas')" id="nav-metas" class="nav-btn px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition duration-200">
-          <i class="fa-solid fa-bullseye mr-1.5"></i>Minhas Metas
+        <button onclick="switchTab('projetos')" id="nav-projetos" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center space-x-2 text-vkay-400">
+          <i class="fa-solid fa-bullseye"></i> <span>Projetos</span>
         </button>
       </nav>
-
-      <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2">
-        <i class="fa-solid fa-bars text-xl"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-vkay-800 bg-vkay-950 px-4 py-3 space-y-2">
-      <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-vkay-900">Visão Geral</button>
-      <button onclick="switchTab('juros')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-vkay-900">Juros Compostos</button>
-      <button onclick="switchTab('estudos')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-vkay-900">Plano de Estudos</button>
-      <button onclick="switchTab('orcamento')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-vkay-900">Regra 50/30/20</button>
-      <button onclick="switchTab('metas')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:bg-vkay-900">Minhas Metas</button>
     </div>
   </header>
 
-  <!-- Container Conteúdo Principal -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+  <!-- Conteúdo Principal -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    <!-- SEÇÃO: DASHBOARD / VISÃO GERAL -->
-    <section id="tab-dashboard" class="tab-content space-y-8 animate-fadeIn">
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-vkay-900/90 via-vkay-950 to-slate-950 border border-vkay-500/30 p-8 md:p-12 shadow-2xl">
-        <div class="max-w-2xl relative z-10 space-y-4">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-vkay-500/20 text-vkay-300 border border-vkay-500/40">
-            <i class="fa-solid fa-bolt mr-1.5 text-vkay-400"></i> Plataforma VKAY
-          </span>
-          <h1 class="font-orbitron text-3xl md:text-5xl font-extrabold text-white leading-tight">
-            PROJETO DE VIDA COM <span class="bg-gradient-to-r from-vkay-400 to-fuchsia-400 bg-clip-text text-transparent">MATEMÁTICA APLICADA</span>
-          </h1>
-          <p class="text-slate-300 text-base md:text-lg leading-relaxed">
-            Organize seus objetivos futuros com precisão analítica. Utilize algoritmos de juros compostos, cálculo de divisão de tempo de estudo e proporções financeiras inteligentes.
-          </p>
-          <div class="pt-4 flex flex-wrap gap-4">
-            <button onclick="switchTab('juros')" class="px-6 py-3 rounded-xl bg-vkay-600 hover:bg-vkay-500 text-white font-semibold text-sm transition shadow-lg shadow-vkay-600/40 flex items-center">
-              Simular Projeções <i class="fa-solid fa-arrow-right ml-2"></i>
-            </button>
-            <button onclick="switchTab('metas')" class="px-6 py-3 rounded-xl bg-vkay-900/80 hover:bg-vkay-800 text-slate-200 border border-vkay-700 font-semibold text-sm transition flex items-center">
-              Gerenciador de Metas
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Módulos Principais -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div onclick="switchTab('juros')" class="cursor-pointer bg-vkay-900/40 border border-vkay-800/80 rounded-2xl p-6 hover:border-vkay-500/60 hover:bg-vkay-900/70 transition group">
-          <div class="w-12 h-12 rounded-xl bg-vkay-500/20 text-vkay-400 border border-vkay-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <h3 class="font-orbitron text-lg font-bold text-white mb-2 group-hover:text-vkay-400 transition">Juros Compostos</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Aprenda a fórmula exponencial $M = C(1+i)^t$ e simule o crescimento do seu patrimônio com aportes mensais.
-          </p>
-          <span class="text-xs font-bold text-vkay-400 flex items-center uppercase tracking-wider">
-            Calcular Agora <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-
-        <div onclick="switchTab('estudos')" class="cursor-pointer bg-vkay-900/40 border border-vkay-800/80 rounded-2xl p-6 hover:border-vkay-500/60 hover:bg-vkay-900/70 transition group">
-          <div class="w-12 h-12 rounded-xl bg-fuchsia-500/20 text-fuchsia-400 border border-fuchsia-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-clock"></i>
-          </div>
-          <h3 class="font-orbitron text-lg font-bold text-white mb-2 group-hover:text-vkay-400 transition">Divisão de Estudos</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Pondere peso e dificuldade para distribuir estrategicamente suas horas semanais de estudo para o ENEM/Vestibulares.
-          </p>
-          <span class="text-xs font-bold text-fuchsia-400 flex items-center uppercase tracking-wider">
-            Montar Plano <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-
-        <div onclick="switchTab('orcamento')" class="cursor-pointer bg-vkay-900/40 border border-vkay-800/80 rounded-2xl p-6 hover:border-vkay-500/60 hover:bg-vkay-900/70 transition group">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
-            <i class="fa-solid fa-wallet"></i>
-          </div>
-          <h3 class="font-orbitron text-lg font-bold text-white mb-2 group-hover:text-vkay-400 transition">Regra 50 / 30 / 20</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Aplique porcentagens sobre sua renda líquida mensal para garantir equilíbrio financeiro e aportes no futuro.
-          </p>
-          <span class="text-xs font-bold text-purple-400 flex items-center uppercase tracking-wider">
-            Dividir Renda <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-          </span>
-        </div>
-      </div>
-
-      <!-- Resumo de Metas -->
-      <div class="bg-vkay-900/40 border border-vkay-800/80 rounded-2xl p-6">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-orbitron text-base font-bold text-white flex items-center">
-            <i class="fa-solid fa-bullseye text-vkay-400 mr-2"></i> Visão Rápida dos Objetivos
-          </h3>
-          <button onclick="switchTab('metas')" class="text-xs font-semibold text-vkay-400 hover:text-vkay-300">Gerenciar Todas</button>
-        </div>
-        <div id="dashboard-goals-list" class="space-y-3">
-          <!-- JS Injeta metas do usuário aqui -->
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: JUROS COMPOSTOS -->
-    <section id="tab-juros" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-vkay-800 pb-5">
-        <h2 class="font-orbitron text-2xl font-bold text-white">Calculadora de Juros Compostos</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          A fórmula $M = C \cdot (1 + i)^t$ calcula a rentabilidade acumulada ao longo dos meses.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6 space-y-5">
-          <h3 class="font-orbitron text-base font-semibold text-vkay-300 border-b border-vkay-800 pb-3">Parâmetros Financeiros</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Aporte Inicial (R$)</label>
-            <input type="number" id="juros-inicial" value="1000" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Aporte Mensal (R$)</label>
-            <input type="number" id="juros-mensal" value="300" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Taxa de Juros Anual (%)</label>
-            <input type="number" id="juros-taxa" value="10" step="0.1" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Tempo de Investimento (Anos)</label>
-            <input type="number" id="juros-anos" value="10" min="1" max="50" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <button onclick="calcularJuros()" class="w-full py-3 bg-vkay-600 hover:bg-vkay-500 text-white rounded-xl font-semibold text-xs uppercase tracking-wider transition shadow-lg shadow-vkay-600/30">
-            Calcular Projeção
-          </button>
-        </div>
-
-        <div class="lg:col-span-2 space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 font-medium block">Total Acumulado</span>
-              <span id="res-juros-total" class="font-orbitron text-xl font-bold text-vkay-400 mt-1 block">R$ 0,00</span>
-            </div>
-            <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 font-medium block">Total Investido</span>
-              <span id="res-juros-investido" class="font-orbitron text-xl font-bold text-slate-200 mt-1 block">R$ 0,00</span>
-            </div>
-            <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-5">
-              <span class="text-xs text-slate-400 font-medium block">Juros Acumulados</span>
-              <span id="res-juros-ganhos" class="font-orbitron text-xl font-bold text-fuchsia-400 mt-1 block">R$ 0,00</span>
-            </div>
-          </div>
-
-          <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Evolução Patrimonial ao longo dos anos</h4>
-            <div class="h-64 relative">
-              <canvas id="chartJuros"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: PLANO DE ESTUDOS -->
-    <section id="tab-estudos" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-vkay-800 pb-5">
-        <h2 class="font-orbitron text-2xl font-bold text-white">Plano Proporcional de Estudos</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          Distribua seu tempo semanal baseado em pesos de matérias e nível de dificuldade individual.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6 space-y-5">
-          <h3 class="font-orbitron text-base font-semibold text-vkay-300 border-b border-vkay-800 pb-3">Configurar Rotina</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Horas Semanais Totais</label>
-            <input type="number" id="estudo-horas-totais" value="20" min="1" max="100" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <div class="pt-2 border-t border-vkay-800">
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Adicionar Disciplina</h4>
-            <div class="space-y-3">
-              <input type="text" id="estudo-nome" placeholder="Ex: Matemática, Redação" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-1">Peso (1-5)</label>
-                  <input type="number" id="estudo-peso" min="1" max="5" value="3" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-400 mb-1">Dificuldade (1-5)</label>
-                  <input type="number" id="estudo-dif" min="1" max="5" value="3" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
-                </div>
-              </div>
-              <button onclick="adicionarDisciplina()" class="w-full py-2.5 bg-vkay-800 hover:bg-vkay-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition">
-                + Incluir Matéria
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-2 space-y-6">
-          <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6">
-            <div class="flex items-center justify-between mb-4">
-              <h4 class="text-sm font-semibold text-slate-200">Divisão Sugerida</h4>
-              <button onclick="calcularEstudos()" class="px-4 py-2 bg-vkay-600 hover:bg-vkay-500 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition">
-                Recalcular
-              </button>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-sm text-slate-300">
-                <thead class="text-xs text-slate-400 uppercase border-b border-vkay-800">
-                  <tr>
-                    <th class="py-3 px-2">Matéria</th>
-                    <th class="py-3 px-2 text-center">Peso</th>
-                    <th class="py-3 px-2 text-center">Dificuldade</th>
-                    <th class="py-3 px-2 text-center">Índice</th>
-                    <th class="py-3 px-2 text-right">Horas/Semana</th>
-                    <th class="py-3 px-2 text-right">Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="tabela-disciplinas" class="divide-y divide-vkay-800/50">
-                  <!-- JS Renderiza Linhas -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4">Proporção por Matéria (%)</h4>
-            <div class="h-64 relative">
-              <canvas id="chartEstudos"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: REGRA 50/30/20 -->
-    <section id="tab-orcamento" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-vkay-800 pb-5">
-        <h2 class="font-orbitron text-2xl font-bold text-white">Planejador Orçamentário 50 / 30 / 20</h2>
-        <p class="text-slate-400 text-sm mt-1">
-          Método proporcional para gestão financeira: Necessidades (50%), Desejos (30%) e Objetivos Futuros (20%).
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6 space-y-5">
-          <h3 class="font-orbitron text-base font-semibold text-vkay-300 border-b border-vkay-800 pb-3">Sua Renda</h3>
-          
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Renda Líquida Mensal (R$)</label>
-            <input type="number" id="orcamento-renda" value="3000" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-vkay-500 text-sm">
-          </div>
-
-          <button onclick="calcularOrcamento()" class="w-full py-3 bg-vkay-600 hover:bg-vkay-500 text-white rounded-xl font-semibold text-xs uppercase tracking-wider transition shadow-lg shadow-vkay-600/30">
-            Dividir Orcamento
-          </button>
-        </div>
-
-        <div class="lg:col-span-2 space-y-6">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="bg-vkay-900/40 border border-amber-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-1.5 h-full bg-amber-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block">50% - Necessidades</span>
-              <span id="orc-50-valor" class="font-orbitron text-xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Gastos essenciais e fixos do mês.</p>
-            </div>
-
-            <div class="bg-vkay-900/40 border border-fuchsia-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-1.5 h-full bg-fuchsia-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-fuchsia-400 font-bold uppercase tracking-wider block">30% - Desejos</span>
-              <span id="orc-30-valor" class="font-orbitron text-xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Lazer, estilo de vida e hobbies.</p>
-            </div>
-
-            <div class="bg-vkay-900/40 border border-vkay-500/30 rounded-2xl p-5 relative overflow-hidden">
-              <div class="w-1.5 h-full bg-vkay-500 absolute left-0 top-0"></div>
-              <span class="text-xs text-vkay-400 font-bold uppercase tracking-wider block">20% - Futuro</span>
-              <span id="orc-20-valor" class="font-orbitron text-xl font-bold text-white mt-2 block">R$ 0,00</span>
-              <p class="text-[11px] text-slate-400 mt-2">Investimentos e reservas de longo prazo.</p>
-            </div>
-          </div>
-
-          <div class="bg-vkay-900/40 border border-vkay-800 rounded-2xl p-6 flex flex-col items-center">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4 w-full text-left">Gráfico Orçamentário</h4>
-            <div class="h-64 w-full max-w-md relative">
-              <canvas id="chartOrcamento"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEÇÃO: MINHAS METAS -->
-    <section id="tab-metas" class="tab-content hidden space-y-8 animate-fadeIn">
-      <div class="border-b border-vkay-800 pb-5 flex justify-between items-center flex-wrap gap-4">
+    <!-- TAB 1: DASHBOARD -->
+    <section id="tab-dashboard" class="hidden space-y-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-vkay-800/40 pb-6">
         <div>
-          <h2 class="font-orbitron text-2xl font-bold text-white">Minhas Metas de Vida</h2>
-          <p class="text-slate-400 text-sm mt-1">
-            Cadastre seus objetivos futuros e acompanhe o esforço necessário com cálculos mensais automatizados.
-          </p>
+          <h1 class="text-3xl font-orbitron font-bold text-white">Visão Geral do Mês</h1>
+          <p class="text-slate-400 text-sm mt-1">Acompanhamento consolidado de pendências, valores pagos e metas financeiras.</p>
         </div>
-        <button onclick="abrirModalMeta()" class="px-4 py-2.5 bg-vkay-600 hover:bg-vkay-500 text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition flex items-center shadow-lg shadow-vkay-600/30">
-          <i class="fa-solid fa-plus mr-2"></i> Criar Nova Meta
+        <button onclick="switchTab('contas'); openBillModal();" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nova Conta</span>
         </button>
       </div>
 
-      <div id="lista-metas-cards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- JS Renderiza Cards de Metas -->
+      <!-- Métricas -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-5 shadow-xl">
+          <div class="flex justify-between items-center text-slate-400 text-xs font-semibold mb-2">
+            <span>TOTAL DE CONTAS</span>
+            <i class="fa-solid fa-wallet text-vkay-400"></i>
+          </div>
+          <div class="text-2xl font-bold text-white" id="dash-total">R$ 0,00</div>
+          <div class="text-xs text-slate-400 mt-2" id="dash-count">0 contas cadastradas</div>
+        </div>
+
+        <div class="bg-vkay-900/60 border border-emerald-900/40 rounded-2xl p-5 shadow-xl">
+          <div class="flex justify-between items-center text-emerald-400 text-xs font-semibold mb-2">
+            <span>TOTAL PAGO</span>
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="text-2xl font-bold text-emerald-400" id="dash-pago">R$ 0,00</div>
+          <div class="text-xs text-emerald-500/80 mt-2" id="dash-count-pago">0 pagas</div>
+        </div>
+
+        <div class="bg-vkay-900/60 border border-amber-900/40 rounded-2xl p-5 shadow-xl">
+          <div class="flex justify-between items-center text-amber-400 text-xs font-semibold mb-2">
+            <span>PENDENTES</span>
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="text-2xl font-bold text-amber-400" id="dash-pendente">R$ 0,00</div>
+          <div class="text-xs text-amber-500/80 mt-2" id="dash-count-pendente">0 pendentes</div>
+        </div>
+
+        <div class="bg-vkay-900/60 border border-rose-900/40 rounded-2xl p-5 shadow-xl">
+          <div class="flex justify-between items-center text-rose-400 text-xs font-semibold mb-2">
+            <span>ATRASADAS</span>
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div class="text-2xl font-bold text-rose-400" id="dash-atrasado">R$ 0,00</div>
+          <div class="text-xs text-rose-500/80 mt-2" id="dash-count-atrasado">0 atrasadas</div>
+        </div>
+      </div>
+
+      <!-- Gráficos -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-2xl p-6">
+          <h3 class="text-lg font-bold text-white mb-4">Gastos por Categoria (Água, Luz, etc.)</h3>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+        <div class="bg-vkay-900/50 border border-vkay-800/80 rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white mb-2">Próximos Vencimentos</h3>
+            <p class="text-xs text-slate-400 mb-4">Mantenha o foco para não pagar juros nem multas.</p>
+            <div id="upcoming-bills-list" class="space-y-3">
+              <!-- JS preenche aqui -->
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-  </main>
-
-  <!-- MODAL: NOVA META -->
-  <div id="modal-meta" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-    <div class="bg-vkay-950 border border-vkay-700 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-vkay-800 pb-3">
-        <h3 class="font-orbitron text-base font-bold text-white">Adicionar Novo Objetivo</h3>
-        <button onclick="fecharModalMeta()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    <!-- TAB 2: MINHAS CONTAS (GERENCIADOR) -->
+    <section id="tab-contas" class="space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 class="text-2xl font-orbitron font-bold text-white">Controle de Contas e Despesas</h1>
+          <p class="text-slate-400 text-sm mt-1">Gerencie suas faturas fixas (água, luz, internet) e recorrentes.</p>
+        </div>
+        <button onclick="openBillModal()" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition shadow-lg shadow-vkay-600/30 flex items-center space-x-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Cadastrar Nova Conta</span>
+        </button>
       </div>
 
-      <div class="space-y-3">
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Título do Objetivo</label>
-          <input type="text" id="meta-titulo" placeholder="Ex: Reserva Financeira, Notebook Novo" class="w-full bg-vkay-900 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
+      <!-- Filtros e Busca -->
+      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+          <input type="text" id="filter-search" oninput="renderBills()" placeholder="Buscar conta (ex: Água, Sanepar)..." class="w-full bg-vkay-950 border border-vkay-800 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-vkay-500">
         </div>
+        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <select id="filter-category" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
+            <option value="ALL">Todas as Categorias</option>
+            <option value="Agua">Água</option>
+            <option value="Luz">Luz / Energia</option>
+            <option value="Internet">Internet / TV</option>
+            <option value="Moradia">Aluguel / Condomínio</option>
+            <option value="Mercado">Mercado / Feira</option>
+            <option value="Outros">Outros</option>
+          </select>
 
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Categoria</label>
-          <select id="meta-categoria" class="w-full bg-vkay-900 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
-            <option value="Financeiro">Financeiro / Patrimônio</option>
-            <option value="Estudos">Estudos / Carreira</option>
-            <option value="Pessoal">Pessoal / Qualidade de Vida</option>
+          <select id="filter-status" onchange="renderBills()" class="bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-vkay-500">
+            <option value="ALL">Todos os Status</option>
+            <option value="pago">Pagas</option>
+            <option value="pendente">Pendentes</option>
+            <option value="atrasado">Atrasadas</option>
           </select>
         </div>
+      </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Valor Alvo (R$)</label>
-            <input type="number" id="meta-valor-total" placeholder="5000" class="w-full bg-vkay-900 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
+      <!-- Tabela / Lista de Contas -->
+      <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-vkay-800/80 bg-vkay-950/50 text-xs font-orbitron uppercase text-slate-400">
+                <th class="py-4 px-6">Status</th>
+                <th class="py-4 px-6">Nome / Descrição</th>
+                <th class="py-4 px-6">Categoria</th>
+                <th class="py-4 px-6">Vencimento</th>
+                <th class="py-4 px-6">Valor</th>
+                <th class="py-4 px-6 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="bills-table-body" class="divide-y divide-vkay-800/40 text-sm">
+              <!-- Renderizado via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div id="empty-bills-msg" class="hidden p-8 text-center text-slate-500">
+          <i class="fa-solid fa-file-circle-xmark text-4xl mb-3 block text-slate-600"></i>
+          Nenhuma conta encontrada com os filtros selecionados.
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: PROJETOS DE VIDA -->
+    <section id="tab-projetos" class="hidden space-y-6">
+      <div>
+        <h1 class="text-2xl font-orbitron font-bold text-white">Projetos & Metas de Vida</h1>
+        <p class="text-slate-400 text-sm mt-1">Organize seus objetivos de curto, médio e longo prazo.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
+            <i class="fa-solid fa-car text-lg"></i>
           </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Já Salvo (R$)</label>
-            <input type="number" id="meta-valor-atual" placeholder="1000" class="w-full bg-vkay-900 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
+          <h3 class="font-bold text-white text-lg">Reserva de Emergência</h3>
+          <p class="text-xs text-slate-400 mt-1">Juntar 6 meses de contas fixas pagar em segurança.</p>
+          <div class="mt-4 bg-vkay-950 rounded-full h-2.5 overflow-hidden border border-vkay-800">
+            <div class="bg-vkay-500 h-full w-2/3"></div>
+          </div>
+          <div class="flex justify-between text-xs text-slate-400 mt-2">
+            <span>Progresso</span>
+            <span class="text-vkay-400 font-semibold">66%</span>
           </div>
         </div>
+
+        <div class="bg-vkay-900/60 border border-vkay-800/80 rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-vkay-800/50 flex items-center justify-center text-vkay-400 mb-4">
+            <i class="fa-solid fa-house text-lg"></i>
+          </div>
+          <h3 class="font-bold text-white text-lg">Reforma / Casa Nova</h3>
+          <p class="text-xs text-slate-400 mt-1">Planejamento financeiro para otimizar residência.</p>
+          <div class="mt-4 bg-vkay-950 rounded-full h-2.5 overflow-hidden border border-vkay-800">
+            <div class="bg-vkay-500 h-full w-1/3"></div>
+          </div>
+          <div class="flex justify-between text-xs text-slate-400 mt-2">
+            <span>Progresso</span>
+            <span class="text-vkay-400 font-semibold">33%</span>
+          </div>
+        </div>
+
+        <div class="bg-vkay-900/60 border border-vkay-800/80 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-vkay-500 transition">
+          <i class="fa-solid fa-plus-circle text-3xl text-vkay-500 mb-2"></i>
+          <span class="font-semibold text-slate-300 text-sm">Criar Novo Projeto</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: NOVA / EDITAR CONTA -->
+  <div id="modal-bill" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-vkay-900 border border-vkay-700/80 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <div class="flex justify-between items-center mb-6 border-b border-vkay-800 pb-4">
+        <h3 id="modal-title" class="font-orbitron font-bold text-lg text-white">Cadastrar Conta</h3>
+        <button onclick="closeBillModal()" class="text-slate-400 hover:text-white transition">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <form id="bill-form" onsubmit="handleSaveBill(event)" class="space-y-4">
+        <input type="hidden" id="bill-id">
 
         <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Prazo para Alcançar (Meses)</label>
-          <input type="number" id="meta-prazo" placeholder="12" class="w-full bg-vkay-900 border border-vkay-800 rounded-xl px-3 py-2 text-white text-sm">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Descrição / Nome da Conta</label>
+          <input type="text" id="bill-name" required placeholder="Ex: Sanepar, Copel, Vivo Fibra..." class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
         </div>
-      </div>
 
-      <div class="pt-3 flex justify-end space-x-3">
-        <button onclick="fecharModalMeta()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-vkay-900">Cancelar</button>
-        <button onclick="salvarMeta()" class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-vkay-600 hover:bg-vkay-500">Salvar Objetivo</button>
-      </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Categoria</label>
+            <select id="bill-category" required class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+              <option value="Agua">Água</option>
+              <option value="Luz">Luz / Energia</option>
+              <option value="Internet">Internet / TV</option>
+              <option value="Moradia">Aluguel / Condomínio</option>
+              <option value="Mercado">Mercado</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Valor (R$)</label>
+            <input type="number" step="0.01" id="bill-amount" required placeholder="0,00" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Data de Vencimento</label>
+            <input type="date" id="bill-duedate" required class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Status Inicial</label>
+            <select id="bill-status" class="w-full bg-vkay-950 border border-vkay-800 rounded-xl px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-vkay-500">
+              <option value="pendente">Pendente</option>
+              <option value="pago">Pago</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-end space-x-3">
+          <button type="button" onclick="closeBillModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white transition">Cancelar</button>
+          <button type="submit" class="bg-vkay-600 hover:bg-vkay-500 text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-vkay-600/30 transition">Salvar Conta</button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-vkay-900 bg-vkay-950 py-6 text-center text-xs text-slate-500">
-    <p>VKAY &copy; 2026 - Projeto de Vida e Planejamento com Matemática Aplicada.</p>
-  </footer>
-
-  <!-- Lógica da Aplicação -->
-  <script src="script.js"></script>
+  <!-- Script JS -->
+  <script src="app.js"></script>
 </body>
 </html>
